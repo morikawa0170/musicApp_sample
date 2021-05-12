@@ -14,7 +14,8 @@ class AppUserController extends Controller
      */
     public function index()
     {
-        return view('userspage.appUsers');
+        return view('main');
+        
     }
 
     /**

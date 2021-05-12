@@ -1,3 +1,7 @@
+<?php
+   $error_message = @$_SESSION['error_message'];
+   //$_SESSION['error_message'] = "";
+?>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -6,12 +10,14 @@
 </head>
 <body>
    <h1>ログイン画面</h1>
+   <p>{{$error_message}}</p>
    <form id="loginForm" name="loginForm" action="" method="POST">
+      {{ csrf_field() }}
       <fieldset>
          <legend>ログインフォーム</legend>
          <p>
-            <label for="userid">ユーザーID</label>
-            <input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力">
+            <label for="username">ユーザーID</label>
+            <input type="text" id="username" name="username" placeholder="ユーザーIDを入力">
          </p>
          <p>
             <label for="password">パスワード</label>
@@ -21,8 +27,8 @@
       </fieldset>
    </form><br>
    <form action="register">
-      <fieldset>          
-         <legend>新規登録フォーム</legend>
+      <fieldset>
+         <legend>登録がまだの方はこちら</legend>
          <input type="submit" value="新規登録">
       </fieldset>
    </form>
