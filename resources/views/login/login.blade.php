@@ -10,7 +10,7 @@
 </head>
 <body>
    <h1>ログイン画面</h1>
-   <p>{{$error_message}}</p>
+   <p>{{ $error_message }}</p>
    <form id="loginForm" name="loginForm" action="" method="POST">
       {{ csrf_field() }}
       <fieldset>

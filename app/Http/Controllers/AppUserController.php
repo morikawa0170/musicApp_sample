@@ -14,7 +14,7 @@ class AppUserController extends Controller
      */
     public function index()
     {
-        return view('main');
+        return view('main.main');
         
     }
 
@@ -36,12 +36,7 @@ class AppUserController extends Controller
      */
     public function store(Request $request)
     {
-        // $appUsers = new AppUsers;
         
-        // $user_id = request('post');
-       
-        // $results = $appUsers->where('user_id', $user_id)->get();
-        // return view('results', ['postdata' => $results]);
     }
 
     /**

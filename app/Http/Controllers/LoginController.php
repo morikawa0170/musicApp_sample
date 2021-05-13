@@ -28,7 +28,7 @@ class LoginController extends Controller
       $_SESSION['error_message'] = 'ログインのユーザまたはパスワードが違っています。';
       return redirect('/login');
    }
-   //新規登録用
+   //新規登録機能
    public function register(Request $request)
    {
       // dd($request);
@@ -59,7 +59,26 @@ class LoginController extends Controller
          $AppUser-> save();
          return redirect('/login');
       }
-      
-      
    } 
+   //ログアウトを行う
+   public function logout(Request $request)
+   {
+      session_start();
+      
+      if (isset($_SESSION["NAME"])) {
+         
+         return redirect('/login');
+         $errorMessage = "ログアウトしました。";
+      
+      } else {
+         $errorMessage = "セッションがタイムアウトしました。";
+      }
+      //セッション変数のクリア
+      $_SESSION = array();
+       
+      //セッションのクリア
+      @session_destroy();
+      
+      
+   }
 }

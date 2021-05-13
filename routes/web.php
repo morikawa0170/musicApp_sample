@@ -29,6 +29,8 @@ Route::get('/login/', function (){
 // ログインを実行
 Route::post('/login', [LoginController::class, 'login']);
 
+Route::get('/logout', [LoginController::class, 'logout']);
+
 Route::get('/register/', function (){
     return view('login.register');
 });
