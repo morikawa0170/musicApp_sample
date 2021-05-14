@@ -18,10 +18,6 @@ use App\Http\Controllers\AppUserController;
 
 Route::get('/',[AppUserController::class,'index']);
 
-// Route::get('/', function (){
-//     return view('main');
-// });
-
 Route::get('/login/', function (){
     return view('login.login');
 });
@@ -29,11 +25,17 @@ Route::get('/login/', function (){
 // ログインを実行
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/logout', [LoginController::class, 'logout']);
+//ログアウトを実行
+Route::get('/logout', [LoginController::class,'logout']);
+
+// Route::get('/logout', function(){
+//     return redirect("/login");
+// });
 
 Route::get('/register/', function (){
     return view('login.register');
 });
 
 Route::post('/register', [LoginController::class, 'register']);
+
 

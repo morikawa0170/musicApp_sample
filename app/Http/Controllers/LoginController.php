@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\AppUser;
-// use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class LoginController extends Controller
 {
+
    //ログインを行う
    public function login(Request $request)
    {
@@ -28,6 +29,7 @@ class LoginController extends Controller
       $_SESSION['error_message'] = 'ログインのユーザまたはパスワードが違っています。';
       return redirect('/login');
    }
+   
    //新規登録機能
    public function register(Request $request)
    {
@@ -59,26 +61,17 @@ class LoginController extends Controller
          $AppUser-> save();
          return redirect('/login');
       }
-   } 
+   }
+   
    //ログアウトを行う
    public function logout(Request $request)
    {
       session_start();
-      
-      if (isset($_SESSION["NAME"])) {
-         
-         return redirect('/login');
-         $errorMessage = "ログアウトしました。";
-      
-      } else {
-         $errorMessage = "セッションがタイムアウトしました。";
-      }
-      //セッション変数のクリア
+      // セッションの変数のクリア
       $_SESSION = array();
-       
-      //セッションのクリア
-      @session_destroy();
-      
-      
+      // セッションクリア
+      session_destroy();
+      // return redirect('/login');
+      return view('login.logout');
    }
 }

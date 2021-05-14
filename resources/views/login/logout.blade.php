@@ -1,16 +1,4 @@
-<?php
-   session_start();
-   
-   if (isset($_SESSION["NAME"])) {
-       $errorMessage = "ログアウトしました。";
-   } else {
-       $errorMessage = "セッションがタイムアウトしました。";
-   }
-   
-   // セッションの変数のクリア
-   $_SESSION = array();
-   
-   // セッションクリア
-   @session_destroy();
-?>
 
+<h1>ログアウト画面</h1>
+
+<a href="login">ログイン画面に戻る</a>

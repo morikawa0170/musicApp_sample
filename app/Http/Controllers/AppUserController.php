@@ -14,6 +14,13 @@ class AppUserController extends Controller
      */
     public function index()
     {
+        session_start();
+        if (!isset($_SESSION["NAME"])) {
+            // セッション変数のNAMEがセットされていなかったら、未ログイン
+            header("Location:login");
+            exit;
+        }
+        
         return view('main.main');
         
     }
