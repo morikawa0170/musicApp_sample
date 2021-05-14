@@ -32,6 +32,10 @@ Route::get('/logout', [LoginController::class,'logout']);
 //     return redirect("/login");
 // });
 
+Route::get('/mypage',[AppUserController::class,'update']);
+
+Route::get('/chat',[AppUserController::class,'show']);
+
 Route::get('/register/', function (){
     return view('login.register');
 });

@@ -16,9 +16,6 @@ class Logout
      */
     public function handle(Request $request, Closure $next)
     {   
-        if(!isset($_SESSION["NAME"])) {
-            return redirect('/login');
-        }
         return $next($request);
     }
 }

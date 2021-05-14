@@ -12,7 +12,7 @@ class AppUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //メインページを表示
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -30,7 +30,7 @@ class AppUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         //
     }
@@ -41,7 +41,7 @@ class AppUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         
     }
@@ -52,9 +52,9 @@ class AppUserController extends Controller
      * @param  \App\Models\AppUser  $appUser
      * @return \Illuminate\Http\Response
      */
-    public function show(AppUser $appUser)
+    public function show(AppUser $appUser) //プレイリスト詳細ページを表示
     {
-        //
+        return view('main.chat');
     }
 
     /**
@@ -75,9 +75,9 @@ class AppUserController extends Controller
      * @param  \App\Models\AppUser  $appUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppUser $appUser)
+    public function update(Request $request, AppUser $appUser) //マイページを表示
     {
-        //
+        return view('main.mypage');
     }
 
     /**
