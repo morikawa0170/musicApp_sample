@@ -12,6 +12,7 @@
     </head>
     <body>
         <form>
+            @csrf
             <label>ユーザー名:<input type="text" name="playlist" id="playlist"></label>
             <button onclick="search();return false;">検索</button>
         </form>

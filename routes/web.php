@@ -28,13 +28,16 @@ Route::post('/login', [LoginController::class, 'login']);
 //ログアウトを実行
 Route::get('/logout', [LoginController::class,'logout']);
 
-// Route::get('/logout', function(){
-//     return redirect("/login");
-// });
-
+//マイページを表示
 Route::get('/mypage',[AppUserController::class,'update']);
 
+//チャット画面を表示
 Route::get('/chat',[AppUserController::class,'show']);
+
+
+Route::post('/chatajax',[AppUserController::class,'store']);
+
+Route::get('/chatajax',[AppUserController::class,'create']);
 
 Route::get('/register/', function (){
     return view('login.register');

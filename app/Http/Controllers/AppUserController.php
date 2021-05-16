@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppUser;
 use Illuminate\Http\Request;
+use App\Models\Chat;
 
 class AppUserController extends Controller
 {
@@ -30,9 +31,23 @@ class AppUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create(Request $request) 
     {
-        //
+        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
+        $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
+        
+ 	    $query = "SELECT * from chats where title='".$playlistId."' order by id desc";
+ 	    if ($result = mysqli_query($link, $query)) {
+ 		    $msg = array();
+ 		    foreach($result as $row) {
+  		    $msg[] = array(
+ 				'msg'=>$row['msg']
+ 			);
+ 		    }
+     	    header("Content-Type: application/json; charset=utf-8");
+     	    echo json_encode($msg);
+        }
+        // dd($request);
     }
 
     /**
@@ -41,8 +56,23 @@ class AppUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) 
-    {
+    public function store(Request $request) //チャットの処理
+    {   
+        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
+        // $chat = new Chat();
+        // $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
+        $chat = new Chat();
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ //タイトル（プレイリストid）とチャットをdbに登録
+        	$chat-> titel = $request-> title;
+        	$chat-> msg = $request-> msg;
+        	$chat-> save();
+        	$save = $chat-> save();
+        	if ($save) {
+        		header("Location: chat?url=https://open.spotify.com/playlist/".$playlistId);
+        	}
+        }
+           
+        // return view('main.chatajax');
         
     }
 
@@ -55,6 +85,9 @@ class AppUserController extends Controller
     public function show(AppUser $appUser) //プレイリスト詳細ページを表示
     {
         return view('main.chat');
+        
+        
+        
     }
 
     /**
