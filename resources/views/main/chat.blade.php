@@ -24,6 +24,7 @@ $url = str_replace("https://open.spotify.com/","https://open.spotify.com/embed/"
    <input type="text" name="msg" size=80>
    <input type="submit" value="送信">
 </form>
+<a href="mypage">Myページに戻る</a>
 <script>
    function recvAJAX() {
       var ajax = new XMLHttpRequest();
@@ -44,6 +45,6 @@ $url = str_replace("https://open.spotify.com/","https://open.spotify.com/embed/"
 </script>
          
       </div>
-      <!--<ifarme src="chat.php?title=<?php echo $title;?>"></iframe>-->
+      <!--<ifarme src="chat.php?title=<?php //echo $title;?>"></iframe>-->
    </body>
 </html>

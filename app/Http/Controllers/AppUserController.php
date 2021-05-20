@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppUser;
 use Illuminate\Http\Request;
-use App\Models\Chat;
+use App\Models\Comment;
 
 class AppUserController extends Controller
 {
@@ -33,20 +33,23 @@ class AppUserController extends Controller
      */
     public function create(Request $request) 
     {
-        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
-        $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
         
- 	    $query = "SELECT * from chats where title='".$playlistId."' order by id desc";
- 	    if ($result = mysqli_query($link, $query)) {
- 		    $msg = array();
- 		    foreach($result as $row) {
-  		    $msg[] = array(
- 				'msg'=>$row['msg']
- 			);
- 		    }
-     	    header("Content-Type: application/json; charset=utf-8");
-     	    echo json_encode($msg);
-        }
+        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
+        
+        echo $playlistId;
+    //     $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
+        
+ 	  //  $query = "SELECT * from comments where title='".$playlistId."' order by id desc";
+ 	  //  if ($result = mysqli_query($link, $query)) {
+ 		 //   $msg = array();
+ 		 //   foreach($result as $row) {
+  		//     $msg[] = array(
+ 			// 	'msg'=>$row['msg']
+ 			// );
+ 		 //   }
+    //  	    header("Content-Type: application/json; charset=utf-8");
+    //  	    echo json_encode($msg);
+    //     }
         // dd($request);
     }
 
@@ -58,17 +61,17 @@ class AppUserController extends Controller
      */
     public function store(Request $request) //チャットの処理
     {   
-        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
-        // $chat = new Chat();
-        // $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
-        $chat = new Chat();
+        $comment = new Comment();
+        $title = $request-> title;
+        $msg = $request-> msg;
         if($_SERVER['REQUEST_METHOD'] == 'POST'){ //タイトル（プレイリストid）とチャットをdbに登録
-        	$chat-> titel = $request-> title;
-        	$chat-> msg = $request-> msg;
-        	$chat-> save();
-        	$save = $chat-> save();
+        	$comment-> title = $title;
+        	$comment-> msg = $msg;
+        	$comment-> save();
+        	$save = $comment-> save();
         	if ($save) {
-        		header("Location: chat?url=https://open.spotify.com/playlist/".$playlistId);
+        		header("Location: chat?url=https://open.spotify.com/playlist/".$title);
+        		exit;
         	}
         }
            

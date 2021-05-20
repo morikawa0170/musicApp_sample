@@ -34,11 +34,12 @@ Route::get('/mypage',[AppUserController::class,'update']);
 //チャット画面を表示
 Route::get('/chat',[AppUserController::class,'show']);
 
-
+//チャットの処理
 Route::post('/chatajax',[AppUserController::class,'store']);
 
 Route::get('/chatajax',[AppUserController::class,'create']);
 
+//新規登録
 Route::get('/register/', function (){
     return view('login.register');
 });
