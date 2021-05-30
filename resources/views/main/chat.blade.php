@@ -28,7 +28,7 @@ $url = str_replace("https://open.spotify.com/","https://open.spotify.com/embed/"
 <script>
    function recvAJAX() {
       var ajax = new XMLHttpRequest();
-      ajax.open("get", "chatajax?title=<?php echo $title;?>");
+      ajax.open("get", "chatajax?url=https://open.spotify.com/playlist/<?php echo $title;?>");
       ajax.responseType = "json";
       ajax.send(); // 通信させます。
       ajax.addEventListener("load", function(){ // loadイベントを登録します。

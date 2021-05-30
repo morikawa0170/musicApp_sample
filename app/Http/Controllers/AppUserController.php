@@ -33,23 +33,21 @@ class AppUserController extends Controller
      */
     public function create(Request $request) 
     {
+        $title = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
         
-        $playlistId = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
+        $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
         
-        echo $playlistId;
-    //     $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
-        
- 	  //  $query = "SELECT * from comments where title='".$playlistId."' order by id desc";
- 	  //  if ($result = mysqli_query($link, $query)) {
- 		 //   $msg = array();
- 		 //   foreach($result as $row) {
-  		//     $msg[] = array(
- 			// 	'msg'=>$row['msg']
- 			// );
- 		 //   }
-    //  	    header("Content-Type: application/json; charset=utf-8");
-    //  	    echo json_encode($msg);
-    //     }
+ 	    $query = "SELECT * from comments where title='".$title."' order by id desc";
+ 	    if ($result = mysqli_query($link, $query)) {
+ 		    $msg = array();
+ 		    foreach($result as $row) {
+  		    $msg[] = array(
+ 				'msg'=>$row['msg']
+ 			);
+ 		    }
+     	    header("Content-Type: application/json; charset=utf-8");
+     	    echo json_encode($msg);
+        }
         // dd($request);
     }
 
