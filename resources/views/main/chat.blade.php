@@ -28,7 +28,7 @@ $title = str_replace("/musicApp/public/chat/", "",  $_SERVER['REQUEST_URI']);
          <script>
             function recvAJAX() {
                var ajax = new XMLHttpRequest();
-               ajax.open("get", "/musicApp/public/chatajax/{{ $title }}>");
+               ajax.open("get", "/musicApp/public/chatajax/{{ $title }}");
                ajax.responseType = "json";
                ajax.send(); // 通信させます。
                ajax.addEventListener("load", function(){ // loadイベントを登録します。
