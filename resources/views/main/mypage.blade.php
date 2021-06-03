@@ -54,10 +54,11 @@
                             var name=json2.items[i].name;
                             var url=json2.items[i].external_urls.spotify;
                             var img=null;
+                            var playlistId = json2.items[i].id;
                              if (json2.items[i].images.length > 2) {
                                   img=json2.items[i].images[2].url;
                              }
-                            html += "<tr><td><a href='chat?url="+encodeURI(url)+"'>";
+                            html += "<tr><td><a href='chat/"+playlistId+"'>";
                             if (img!=null) {
                                 html += "<img src='"+img+"'width=100px height=100px'>";
                             }

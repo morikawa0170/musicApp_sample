@@ -29,15 +29,15 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class,'logout']);
 
 //マイページを表示
-Route::get('/mypage',[AppUserController::class,'update']);
+Route::get('/mypage',[AppUserController::class,'edit']);
 
 //チャット画面を表示
-Route::get('/chat',[AppUserController::class,'show']);
+Route::get('/chat/{title}',[AppUserController::class,'show']);
 
 //チャットの処理
-Route::post('/chatajax',[AppUserController::class,'store']);
+Route::post('/chatajax/{title}',[AppUserController::class,'store']);
 
-Route::get('/chatajax',[AppUserController::class,'create']);
+Route::get('/chatajax/{title}',[AppUserController::class,'create']);
 
 //新規登録
 Route::get('/register/', function (){

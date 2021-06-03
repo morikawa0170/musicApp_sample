@@ -31,9 +31,10 @@ class AppUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) 
+    public function create(Request $request, Comment $comment) 
     {
-        $title = str_replace("https://open.spotify.com/playlist/","", urldecode(@$_GET['url']));
+        
+        $title = str_replace("/musicApp/public/chat/", "",  $_SERVER['REQUEST_URI']);
         
         $link = mysqli_connect('morikawa.naviiiva.work', 'naviiiva_user', '!Samurai1234', 'morikawa');
         
@@ -59,17 +60,19 @@ class AppUserController extends Controller
      */
     public function store(Request $request) //チャットの処理
     {   
+        
         $comment = new Comment();
         $title = $request-> title;
         $msg = $request-> msg;
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){ //タイトル（プレイリストid）とチャットをdbに登録
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ //POST時のみタイトル（プレイリストid）とチャットをdbに登録
         	$comment-> title = $title;
         	$comment-> msg = $msg;
         	$comment-> save();
         	$save = $comment-> save();
         	if ($save) {
-        		header("Location: chat?url=https://open.spotify.com/playlist/".$title);
-        		exit;
+        // 		header("Location: chat?url=https://open.spotify.com/playlist/".$title);
+        // 		exit;
+                return redirect("/chat/$title");
         	}
         }
            
@@ -83,23 +86,16 @@ class AppUserController extends Controller
      * @param  \App\Models\AppUser  $appUser
      * @return \Illuminate\Http\Response
      */
-    public function show(AppUser $appUser) //プレイリスト詳細ページを表示
+    public function show($id) //プレイリスト詳細ページを表示
     {
-        return view('main.chat');
-        
-        
-        
+        $title = Comment::find($id);
+        return view('main.chat')->with('title', $title);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\AppUser  $appUser
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AppUser $appUser)
+    public function edit() //マイページを表示
     {
-        //
+        return view('main.mypage');
     }
 
     /**
@@ -109,9 +105,9 @@ class AppUserController extends Controller
      * @param  \App\Models\AppUser  $appUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppUser $appUser) //マイページを表示
+    public function update(Request $request, AppUser $appUser) 
     {
-        return view('main.mypage');
+        //
     }
 
     /**
