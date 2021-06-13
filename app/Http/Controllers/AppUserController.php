@@ -18,16 +18,23 @@ class AppUserController extends Controller
         session_start();
         if (!isset($_SESSION["NAME"])) {
             // セッション変数のNAMEがセットされていなかったら、未ログイン
-            header("Location:login");
-            exit;
+            return redirect('login');
         }
-        
-        return view('main.main');
+        $name = $_SESSION["NAME"];
+        $username = [
+            'username' => $name
+        ];
+        return view('main.main', $username);
         
     }
 
     public function create($title) //コメント表示機能
     {
+        session_start();
+        if (!isset($_SESSION["NAME"])) {
+            // セッション変数のNAMEがセットされていなかったら、未ログイン
+            return redirect('login');
+        }
         //$title(spotifyid)のみを取得
         $comments = Comment::where('title',$title)->get(); 
         
@@ -52,6 +59,11 @@ class AppUserController extends Controller
      */
     public function store(Request $request) //チャットの処理
     {   
+        session_start();
+        if (!isset($_SESSION["NAME"])) {
+            // セッション変数のNAMEがセットされていなかったら、未ログイン
+            return redirect('login');
+        }
         
         $comment = new Comment();
         $title = $request-> title;
@@ -62,8 +74,6 @@ class AppUserController extends Controller
         	$comment-> save();
         	$save = $comment-> save();
         	if ($save) {
-        // 		header("Location: chat?url=https://open.spotify.com/playlist/".$title);
-        // 		exit;
                 return redirect("/chat/$title");
         	}
         }
@@ -78,16 +88,33 @@ class AppUserController extends Controller
      * @param  \App\Models\AppUser  $appUser
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //プレイリスト詳細ページを表示
+    public function show($id) //チャットページを表示
     {
+        session_start();
+        if (!isset($_SESSION["NAME"])) {
+            // セッション変数のNAMEがセットされていなかったら、未ログイン
+            return redirect('login');
+        }
         $title = Comment::find($id);
-        return view('main.chat')->with('title', $title);
-
+        return view('main.chat',compact('title'));
     }
 
-    public function edit() //マイページを表示
+    public function edit($username) //マイページを表示
     {
-        return view('main.mypage');
+        session_start();
+        if (!isset($_SESSION["NAME"])) {
+            // セッション変数のNAMEがセットされていなかったら、未ログイン
+            return redirect('login');
+        }
+        
+        $user_data = AppUser::where('username', $username)->first();
+        // $result = array();
+        // foreach($user_data as $row){
+        //     echo $user_data[$row[1]] = $row[0];
+        // }
+        // return view('main.mypage', ['user_data' => $user_data]);
+        return view('main.mypage', compact('user_data'));
+        // return $user_data;
     }
 
     /**

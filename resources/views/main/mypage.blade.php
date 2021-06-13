@@ -11,11 +11,12 @@
         </style>
     </head>
     <body>
-        <form>
-            @csrf
-            <label>ユーザー名:<input type="text" name="playlist" id="playlist"></label>
-            <button onclick="search();return false;">検索</button>
-        </form>
+         <!--<form>-->
+        <!--    @csrf-->
+        <!--    <label>ユーザー名:<input type="text" name="playlist" id="playlist"></label>-->
+        <!--    <button onclick="search();return false;">検索</button>-->
+        <!--</form>-->
+        <a href="/musicApp/public">投稿一覧画面に戻る</a>
         <div id="list"></div>
         <script>
             var Client_ID = "c952338e635a43308c36d5ebdee12aae"; 
@@ -26,8 +27,7 @@
             var token="";
             var type="";
             function search() {
-                var userID = document.getElementById("playlist").value;
-                //var userID ="winningkyoudi567";
+                var userID ="{{ $user_data -> spotifyid }}";
                 var ajax = new XMLHttpRequest();
                 ajax.open("post", "https://accounts.spotify.com/api/token");
                 // サーバに対して解析方法を指定する
@@ -58,7 +58,7 @@
                              if (json2.items[i].images.length > 2) {
                                   img=json2.items[i].images[2].url;
                              }
-                            html += "<tr><td><a href='chat/"+playlistId+"'>";
+                            html += "<tr><td><a href='/musicApp/public/chat/"+playlistId+"'>";
                             if (img!=null) {
                                 html += "<img src='"+img+"'width=100px height=100px'>";
                             }
@@ -69,6 +69,7 @@
                     }, false);
                 }, false);
             }
+            var handle=search(); 
         </script>
     </body>
 </html>

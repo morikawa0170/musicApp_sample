@@ -22,28 +22,21 @@ Route::get('/login/', function (){
     return view('login.login');
 });
 
-// ログインを実行
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/mypage/{username}',[AppUserController::class,'edit']); //マイページを表示
 
-//ログアウトを実行
-Route::get('/logout', [LoginController::class,'logout']);
+Route::get('/chat/{title}',[AppUserController::class,'show']); //チャット画面を表示
 
-//マイページを表示
-Route::get('/mypage',[AppUserController::class,'edit']);
+Route::post('/login', [LoginController::class, 'login']); // ログインを実行
 
-//チャット画面を表示
-Route::get('/chat/{title}',[AppUserController::class,'show']);
+Route::get('/logout', [LoginController::class,'logout']); //ログアウトを実行
 
-//チャットの処理
-Route::post('/chatajax/{title}',[AppUserController::class,'store']);
+Route::post('/chatajax/{title}',[AppUserController::class,'store']); //チャットの処理
+Route::get('/chatajax/{title}',[AppUserController::class,'create']); //チャットを表示
 
-Route::get('/chatajax/{title}',[AppUserController::class,'create']);
 
-//新規登録
-Route::get('/register/', function (){
+Route::get('/register/', function (){ //新規登録
     return view('login.register');
 });
-
 Route::post('/register', [LoginController::class, 'register']);
 
 

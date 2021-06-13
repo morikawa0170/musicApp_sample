@@ -3,7 +3,13 @@
 @section('title', 'メインぺージ')
 
 <h1>メインページ</h1>
+<form action="mypage/{{ $username }}" method="post">
+    <a href="mypage/{{ $username }}">Myページ</a>
+    <input type="hidden">
+</form>
 
-<a href="mypage">Myページ</a>
-<a href="logout">ログアウト</a>
+<form action="logout" method="post">
+    <a href="logout">ログアウト</a>
+    <input type="hidden">
+</form>
 
