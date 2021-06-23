@@ -9,15 +9,11 @@
                 border: 1px solid black;
             }
         </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-         <!--<form>-->
-        <!--    @csrf-->
-        <!--    <label>ユーザー名:<input type="text" name="playlist" id="playlist"></label>-->
-        <!--    <button onclick="search();return false;">検索</button>-->
-        <!--</form>-->
         <a href="/musicApp/public">投稿一覧画面に戻る</a>
-        <div id="list"></div>
+        <div id="list" class="container"></div>
         <script>
             var Client_ID = "c952338e635a43308c36d5ebdee12aae"; 
             var Client_Secret = "effa2a4707f948159369e7708a899c9e"; 
@@ -47,7 +43,7 @@
                     ajax2.send();
                     ajax2.responseType = "json";
                     ajax2.addEventListener("load", function(){ // loadイベントを登録します。
-                        var html="<table>"
+                        var html="<table class='container'>"
                         html+="<tr><th>タイトル</th><th>コメント</th></tr>"
                         var json2 = this.response;
                         for (var i=0;i<json2.items.length;i++) {
