@@ -24,7 +24,7 @@ class AppUserController extends Controller
         
     }
 
-    public function create($title) //コメント表示機能
+    public function chatCreate($title) //コメント表示機能
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -48,7 +48,7 @@ class AppUserController extends Controller
         }
     }
 
-    public function store(Request $request) //コメント登録機能
+    public function chatStore(Request $request) //コメント登録機能
     {   
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -71,7 +71,7 @@ class AppUserController extends Controller
 
     }
 
-    public function show($id) //チャットページを表示
+    public function chat($id) //チャットページを表示
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -83,7 +83,7 @@ class AppUserController extends Controller
         return view('main.chat',compact('title'));
     }
 
-    public function edit($username) //マイページを表示
+    public function mypage($username) //マイページを表示
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
