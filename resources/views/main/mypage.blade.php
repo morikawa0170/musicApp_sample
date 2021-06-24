@@ -2,17 +2,14 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>Spotify API test</title>
-        <style type="text/css" src="style.css"></style>
+        <title>マイページ</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <style>
-            th, td {
-                border: 1px solid black;
-            }
-            .td {
+            .table td{
+                vertical-align: middle;
                 height: 100px;
             }
         </style>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <a href="/musicApp/public">投稿一覧画面に戻る</a>
@@ -26,7 +23,7 @@
             var token="";
             var type="";
             function search() {
-                var userID ="{{ $user_data -> spotifyid }}"; //現在ログインしているアカウントのspotifyid
+                var spotifyId ="{{ $user_data -> spotifyid }}"; //現在ログインしているアカウントのspotifyid
                 var ajax = new XMLHttpRequest();
                 ajax.open("post", "https://accounts.spotify.com/api/token");
                 // サーバに対して解析方法を指定する
@@ -40,34 +37,40 @@
                     token = json["access_token"];
             
                     var ajax2 = new XMLHttpRequest();
-                    ajax2.open("get", "https://api.spotify.com/v1/users/"+ userID +"/playlists");
+                    ajax2.open("get", "https://api.spotify.com/v1/users/"+ spotifyId +"/playlists");
                     ajax2.setRequestHeader( 'Authorization', 'Authorization: Bearer '+ token
                     );
                     ajax2.send();
                     ajax2.responseType = "json";
                     ajax2.addEventListener("load", function(){ // loadイベントを登録します。
-                        var html="<table class='container'>"
-                        html+="<tr><th>タイトル</th><th>コメント</th><th style='text-align:center;'>登録</th></tr>"
+                        var html="<table class='table'>"
+                        html+="<thead class='thead-light'><tr><th>タイトル</th><th>説明</th><th style='text-align:center;'>登録</th></tr></thead>"
                         var json2 = this.response;
                         //
                         for (var i=0;i<json2.items.length;i++) {
-                            var name=json2.items[i].name; //プレイリスト名
+                            var playlistName=json2.items[i].name; //プレイリスト名
                             var img=null;
                             var playlistId = json2.items[i].id;　//プレイリストID
                             var owner = json2.items[i].owner.id; //プレイリスト作成者のID
                             var description = json2.items[i].description;
                             //自分の作成したプレイリストのみを表示
-                            if(userID == owner) {
+                            if(spotifyId == owner) {
                                 if (json2.items[i].images.length > 2) {
                                   img=json2.items[i].images[2].url;
                                  }
-                                html += "<tr><td class='td'><a href='/musicApp/public/chat/"+playlistId+"'>";
+                                html += "<tr><td><a href='/musicApp/public/chat/"+playlistId+"'>";
                                 //画像がある場合は表示
                                 if (img!=null) {
                                     html += "<img src='"+img+"'width=100px height=100px'>";
                                 }
-                                var button = "<button type='button' class='btn btn-success'>登録</button>"
-                                html += name+"</a></td><td class='td'><pre>"+description+"</pre></td><td style='text-align:center;'>"+button+"</td></tr>";
+                                var button = "<form action='' method='POST'>"
+                                                +"<input type='submit' class='btn btn-success ' value='登録'>"
+                                                +"<input type='hidden' name='spotifyId' value='"+spotifyId+"'>"
+                                                +"<input type='hidden' name='playlistId' value='"+playlistId+"'>"
+                                                +"<input type='hidden' name='playlistName' value='"+playlistName+"'>"
+                                            +"<form>";
+                                
+                                html += playlistName+"</a></td><td><pre>"+description+"</pre></td><td style='text-align:center;'>"+button+"</td></tr>";
                             }else {
                                 continue;
                             }
