@@ -24,7 +24,7 @@ class AppUserController extends Controller
         
     }
 
-    public function chatCreate($title) //コメント表示機能
+    public function chatShow($title) //コメント表示機能
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {

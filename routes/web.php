@@ -27,7 +27,7 @@ Route::get('/chat/{title}',[AppUserController::class,'chat']); //チャット画
 Route::post('/login', [LoginController::class, 'login']); // ログインを実行
 Route::get('/logout', [LoginController::class,'logout']); //ログアウトを実行
 Route::post('/chatajax/{title}',[AppUserController::class,'chatStore']); //チャットの処理
-Route::get('/chatajax/{title}',[AppUserController::class,'chatCreate']); //チャットを表示
+Route::get('/chatajax/{title}',[AppUserController::class,'chatShow']); //チャットを表示
 
 
 Route::get('/register/', function (){ //新規登録
