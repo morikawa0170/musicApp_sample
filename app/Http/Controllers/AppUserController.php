@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AppUser;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Playlists;
 
 class AppUserController extends Controller
 {
@@ -17,11 +18,9 @@ class AppUserController extends Controller
             return redirect('login');
         }
         $name = $_SESSION["NAME"];
-        $username = [
-            'username' => $name
-        ];
-        return view('main.main', $username);
+        $playlists = Playlists::all(); //プレイリストの情報を全件取得
         
+        return view('main.main', ['playlists'=>$playlists, 'name'=>$name]);
     }
 
     public function chatShow($title) //コメント表示機能
