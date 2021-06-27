@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AppUserController;
+use App\Http\Controllers\PlaylistController;
+
 
 
 /*
@@ -22,6 +25,8 @@ Route::get('/login/', function (){
     return view('login.login');
 });
 
+
+Route::post('/create', [PlaylistController::class, 'create']);
 Route::get('/mypage/{username}',[AppUserController::class,'mypage']); //マイページを表示
 Route::get('/chat/{title}',[AppUserController::class,'chat']); //チャット画面を表示
 Route::post('/login', [LoginController::class, 'login']); // ログインを実行
