@@ -63,17 +63,15 @@
                                 if (img!=null) {
                                     html += "<img src='"+img+"'width=100px height=100px'>";
                                 }
-                                var button = "<form action='/musicApp/public/create' method='POST'>"
-                                                +"<input type='submit' class='btn btn-success ' value='登録'>"
-                                                +"<input type='hidden' name='spotifyId' value='"+spotifyId+"'>"
-                                                +"<input type='hidden' name='playlistId' value='"+playlistId+"'>"
-                                                +"<input type='hidden' name='playlistName' value='"+playlistName+"'>"
-                                                +"<input type='hidden' name='owner' value='"+owner+"'>"
-                                                +"<input type='hidden' name='description' value='"+description+"'>"
-                                                +"<input type='hidden' name='_token' value='{{ csrf_token() }}' />"
-                                            +"<form>";
+                                var button ="<input type='submit' class='btn btn-success ' value='登録'>"
+                                            +"<input type='hidden' name='playlistId' value='"+playlistId+"'>"
+                                            +"<input type='hidden' name='playlistName' value='"+playlistName+"'>"
+                                            +"<input type='hidden' name='owner' value='"+owner+"'>"
+                                            +"<input type='hidden' name='description' value='"+description+"'>"
+                                            +"<input type='hidden' name='img' value='"+img+"'>"
+                                            +"<input type='hidden' name='_token' value='{{ csrf_token() }}'>";
                                 
-                                html += playlistName+"</a></td><td><p style='font-size: 14px;'>"+description+"</p></td><td style='text-align:center;'>"+button+"</td></tr>";
+                                html += playlistName+"</a></td><td><p style='font-size: 14px;'>"+description+"</p></td><td style='text-align:center;'><form action='/musicApp/public/create' method='POST'>"+button+"</form></td></tr>";
                             }else {
                                 continue;
                             }
