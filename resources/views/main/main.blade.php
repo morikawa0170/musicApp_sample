@@ -6,7 +6,7 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>マイページ</title>
+        <title>メインページ</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <style>
             .table td{
@@ -18,11 +18,14 @@
     <body>
         <h1>メインページ</h1>
         <a href="mypage/{{ $name }}">Myページ</a>
-        <a href="logout">ログアウト</a>
+        <form action="logout" method="POST">
+            @csrf
+            <input type="submit" value="ログアウト" class="btn btn-link">
+        </form>
         <div id="list" class="container">
             <table class="table">
                 <thead class="thead-light">
-                    <tr><th>タイトル</th><th>説明</th><th style="text-align:center;">作成者</th></tr>
+                    <tr><th  class="w-25">タイトル</th><th style="width: 60%;">説明</th><th style="text-align:center; width: 15%;">作成者</th></tr>
                 </thead>
                 <tbody>
                     @foreach ($playlists as $playlist)
@@ -32,11 +35,11 @@
                                     <img src="{{ $playlist -> img }}" width="100px" height="100px'">
                                 {{ $playlist -> playlistName }}</a>
                             </td>
-                            <td>
+                            <td class="w-50">
                                 <p style="font-size: 14px;">{{ $playlist -> description }}</p>
                             </td>
-                            <td style="text-align:center;">
-                                <p>{{ $playlist -> owner }}</p>
+                            <td class="w-25" style="text-align:center;">
+                                <p><a href="https://open.spotify.com/user/{{ $playlist->spotifyId}}">{{ $playlist -> owner }}</a></p>
                             </td>
                         </tr>
                      @endforeach    
