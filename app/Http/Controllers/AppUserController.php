@@ -9,8 +9,8 @@ use App\Models\Playlists;
 
 class AppUserController extends Controller
 {
-   
-    public function index() //メインページを表示
+    //メインページを表示
+    public function index() 
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -23,7 +23,8 @@ class AppUserController extends Controller
         return view('main.main', ['playlists'=>$playlists, 'name'=>$name]);
     }
 
-    public function chatShow($title) //コメント表示機能
+    //コメント表示機能
+    public function chatShow($title) 
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -47,7 +48,8 @@ class AppUserController extends Controller
         }
     }
 
-    public function chatStore(Request $request) //コメント登録機能
+    //コメント登録機能
+    public function chatStore(Request $request) 
     {   
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -67,10 +69,10 @@ class AppUserController extends Controller
                 return redirect("/chat/$title");
         	}
         }
-
     }
-
-    public function chat($id) //チャットページを表示
+    
+    //チャットページを表示
+    public function chat($id) 
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
@@ -81,17 +83,21 @@ class AppUserController extends Controller
         $title = Comment::find($id); //表示しているプレイリストのIDを取得
         return view('main.chat',compact('title'));
     }
-
-    public function mypage($username) //マイページを表示
+    
+    //マイページを表示
+    public function mypage() 
     {
         session_start();
         if (!isset($_SESSION["NAME"])) {
             // セッション変数のNAMEがセットされていなかったら、未ログイン
             return redirect('login');
         }
+        $username = $_SESSION["NAME"];
+        // $playlistIdCount = AppUser::where('playlistId',$playlistId)->count();
         $user_data = AppUser::where('username', $username)->first();
         return view('main.mypage', compact('user_data'));
     }
+
 
     public function update(Request $request, AppUser $appUser) 
     {
