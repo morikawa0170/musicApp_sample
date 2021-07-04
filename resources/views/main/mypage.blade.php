@@ -44,34 +44,38 @@
                     ajax2.responseType = "json";
                     ajax2.addEventListener("load", function(){ // loadイベントを登録します。
                         var html="<table class='table'>"
-                        html+="<thead class='thead-light'><tr><th>タイトル</th><th>説明</th><th style='text-align:center;'>登録</th></tr></thead>"
+                        html+="<thead class='thead-light'><tr><th class='w-25'>タイトル</th><th style='width: 70%;'>説明</th><th style='text-align:center; width: 5%;'>詳細</th></tr></thead>"
                         var json2 = this.response;
                         //
                         for (var i=0;i<json2.items.length;i++) {
                             var playlistName=json2.items[i].name; //プレイリスト名
                             var img=null;
                             var playlistId = json2.items[i].id;　//プレイリストID
-                            var owner = json2.items[i].owner.id; //プレイリスト作成者のID
+                            var ownerId = json2.items[i].owner.id; //プレイリスト作成者のID
                             var description = json2.items[i].description;
+                            var owner = json2.items[i].owner.display_name;
                             //自分の作成したプレイリストのみを表示
-                            if(spotifyId == owner) {
-                                if (json2.items[i].images.length > 2) {
-                                  img=json2.items[i].images[2].url;
+                            if(spotifyId == ownerId) {
+                                if (json2.items[i].images.length > 0) {
+                                  img=json2.items[i].images[0].url;
                                  }
                                 html += "<tr><td><a href=/musicApp/public/chat/"+playlistId+">";
                                 //画像がある場合は表示
                                 if (img!=null) {
                                     html += "<img src='"+img+"'width=100px height=100px'>";
                                 }
-                                var button ="<input type='submit' class='btn btn-success ' value='登録'>"
+                                var button ="<input type='submit' class='btn btn-primary ' value='詳細'>"
+                                            +"<input type='hidden' name='spotifyId' value='"+spotifyId+"'>"
                                             +"<input type='hidden' name='playlistId' value='"+playlistId+"'>"
                                             +"<input type='hidden' name='playlistName' value='"+playlistName+"'>"
                                             +"<input type='hidden' name='owner' value='"+owner+"'>"
+                                            +"<input type='hidden' name='username' value='{{ $user_data->username }}'>"
                                             +"<input type='hidden' name='description' value='"+description+"'>"
                                             +"<input type='hidden' name='img' value='"+img+"'>"
                                             +"<input type='hidden' name='_token' value='{{ csrf_token() }}'>";
                                 
-                                html += playlistName+"</a></td><td><p style='font-size: 14px;'>"+description+"</p></td><td style='text-align:center;'><form action='/musicApp/public/create' method='POST'>"+button+"</form></td></tr>";
+                                html += playlistName+"</a></td><td><p style='font-size: 14px;'>"+description+"</p></td>"
+                                        +"<td style='text-align:center;'><form action='/musicApp/public/mypage/show/"+playlistId+"' method='POST'>"+button+"</form></td></tr>";
                             }else {
                                 continue;
                             }
