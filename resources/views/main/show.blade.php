@@ -20,11 +20,24 @@
          </div>
          <p class="text-right">プレイリスト作成者：<a href="https://open.spotify.com/user/{{ $spotifyId }}">{{ $owner }}</a></p>
          <div class="row pt-2">
-            <a href="" class="btn btn-primary col-1 ml-3 mr-2">編集する</a>
-            <form method="POST" action="" id="">
-               @csrf
-               <a href="" class="btn btn-danger">削除する</a>
-            </form>
+            @if ("$state" == "registered")
+               <a href="" class="btn btn-primary col-1 ml-3 mr-2">編集する</a>
+               <form method="POST" action="" id="">
+                  @csrf
+                  <a href="" class="btn btn-danger ">削除する</a>
+               </form>
+            @else
+               <form action="/musicApp/public/create" method="POST">
+                  @csrf
+                  <input type="submit" class="btn btn-success ml-3 mr-2" value="登録する">
+                  <input type="hidden" name="spotifyId"  value="{{$spotifyId}}">
+                  <input type="hidden" name="playlistId"  value="{{$playlistId}}">
+                  <input type="hidden" name="playlistName"  value="{{$playlistName}}">
+                  <input type="hidden" name="username"  value="{{$username}}">
+                  <input type="hidden" name="description"  value="{{$description}}">
+                  <input type="hidden" name="img"  value="{{$img}}">
+               </form>
+            @endif 
          </div>
       </div>
    </div>

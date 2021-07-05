@@ -29,7 +29,16 @@ class PlaylistController extends Controller
    public function show(Request $request)
    {
       // dd($request);
+      // registered
+      $state = '';
+      $playlistC = Playlists::where('playlistId',$request->playlistId)->count();
       
+      if($playlistC >= 1) {
+         $state = 'registered';
+      } else {
+         $state = 'unregistered';
+      }
+
       $data = [
             "spotifyId" => $request-> spotifyId,
             "playlistId" => $request-> playlistId,
@@ -38,6 +47,7 @@ class PlaylistController extends Controller
             "username" => $request-> username,
             "description" => $request-> description,
             "img" => $request-> img,
+            'state' => $state
          ];
       
       return view('main.show',$data);
