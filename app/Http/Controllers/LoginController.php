@@ -12,21 +12,27 @@ class LoginController extends Controller
    //ログインを行う
    public function login(Request $request)
    {
-      //  dd($request);
       session_start();
-      $username = $request->username;
-      $password = $request->password;
-      $result = AppUser::Where('username', $username)->get();
-      foreach($result as $row){
-         if (password_verify($password, $row['password'])) {
-            session_regenerate_id(true);
-            
-            $_SESSION["NAME"] = $row['username'];
-            return redirect('/');
+      //  dd($request);
+         $username = $request->username;
+         $password = $request->password;
+         $spotifyid = $request->spotifyid;
+         $result = AppUser::Where('username', $username)->get();
+         $user_data = [
+               'username' => $username,
+               'password' => $password,
+               'spotifyid' => $spotifyid
+         ];
+         foreach($result as $row){
+            if (password_verify($password, $row['password'])) {
+               session_regenerate_id(true);
+               
+               $_SESSION["NAME"] = $row['username'];
+               return redirect('/');
+            }
          }
-      }
-      $_SESSION['error_message'] = 'ログインのユーザまたはパスワードが違っています。';
-      return redirect('/login');
+         
+      return redirect('/login')->with('error_message', 'ユーザIDまたはパスワードが違っています。');
    }
    
    //新規登録機能
@@ -38,7 +44,7 @@ class LoginController extends Controller
       $password = $request->password;
       $errorMessage = "";
       $errorMessage2 = "";
-      //db->カラム名 = $request -> name属性の値
+      //db->カラム名 = $request(POSTされた値) -> name属性の値
       $AppUser = new AppUser();
       $AppUser-> username = $username;
       $AppUser-> spotifyid = $spotifyid;
