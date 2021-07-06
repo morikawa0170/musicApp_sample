@@ -22,9 +22,10 @@
          <div class="row pt-2">
             @if ("$state" == "registered")
                <a href="" class="btn btn-primary col-1 ml-3 mr-2">編集する</a>
-               <form method="POST" action="" id="">
+               <form action="/musicApp/public/delete" method="POST" >
                   @csrf
-                  <a href="" class="btn btn-danger ">削除する</a>
+                  <input type="hidden" name="playlistId" value="{{$playlistId}}" id="delete">
+                  <input type="submit" class="btn btn-danger" value="削除する" onClick="return dltclick()">
                </form>
             @else
                <form action="/musicApp/public/create" method="POST">
@@ -44,6 +45,14 @@
    <div>
       <a href="/musicApp/public/mypage" class="ml-1">back</a>
    </div>
-</div>   
+</div>
+<script>
+   function dltclick() {
+      var result = confirm('本当に削除してよろしいですか？');
+      if(result == false) {
+         return false;
+      }
+   }   
+</script>
 </body>
 </html>

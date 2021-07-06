@@ -17,7 +17,7 @@
     </head>
     <body>
         <h1>メインページ</h1>
-        <a href="mypage/{{ $name }}">Myページ</a>
+        <a href="mypage">Myページ</a>
         <form action="logout" method="POST">
             @csrf
             <input type="submit" value="ログアウト" class="btn btn-link">

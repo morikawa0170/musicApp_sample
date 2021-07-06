@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Playlists;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -35,8 +36,6 @@ class PlaylistController extends Controller
       
       if($playlistC >= 1) {
          $state = 'registered';
-      } else {
-         $state = 'unregistered';
       }
 
       $data = [
@@ -51,5 +50,17 @@ class PlaylistController extends Controller
          ];
       
       return view('main.show',$data);
+   }
+   
+   public function destroy(Request $request)
+   {
+      // dd($request);
+      $playlist = Playlists::where('playlistId',$request->playlistId)->first();
+      $playlisId = $playlist->id;
+      Playlists::findOrFail($playlisId)->delete();
+      // $comments = Comments::findOrFail($request->playlistId);
+      // $comments-> delete();
+     
+      return redirect('/');
    }
 }
