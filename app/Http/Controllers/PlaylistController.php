@@ -29,16 +29,18 @@ class PlaylistController extends Controller
    //プレイリスト詳細ページ
    public function show(Request $request)
    {
+      $playlisId = $request->playlistId;
+      $playlist = Playlists::where('playlistId',$playlisId)->first();
       // dd($request);
-      // registered
       $state = '';
-      $playlistC = Playlists::where('playlistId',$request->playlistId)->count();
+      $playlistC = Playlists::where('playlistId',$playlisId)->count();
       
       if($playlistC >= 1) {
          $state = 'registered';
       }
 
       $data = [
+            "id" => $playlist->id,
             "spotifyId" => $request-> spotifyId,
             "playlistId" => $request-> playlistId,
             "playlistName" => $request-> playlistName,
@@ -52,15 +54,28 @@ class PlaylistController extends Controller
       return view('main.show',$data);
    }
    
+   //プレイリスト削除機能
    public function destroy(Request $request)
    {
       // dd($request);
       $playlist = Playlists::where('playlistId',$request->playlistId)->first();
       $playlisId = $playlist->id;
       Playlists::findOrFail($playlisId)->delete();
-      // $comments = Comments::findOrFail($request->playlistId);
-      // $comments-> delete();
      
+      return redirect('/');
+   }
+   
+   
+   //プレイリスト更新機能
+   public function update(Request $request)
+   {
+      // dd($request);
+   
+      $playlist = Playlists::find($request->id);
+      $form = $request->all();
+      unset($form['_token']);
+      $playlist->fill($form)->save();
+      
       return redirect('/');
    }
 }

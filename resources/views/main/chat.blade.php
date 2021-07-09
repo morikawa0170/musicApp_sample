@@ -13,7 +13,7 @@ $username = $_SESSION["NAME"];
       <div class="container">
          <iframe class="d-block mt-3 mx-auto w-50" style="height: 500px" src="https://open.spotify.com/embed/playlist/{{ $url }}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
          <br>
-         <a href="/musicApp/public/mypage/{{ $username }}">Myページに戻る</a>
+         <a href="/musicApp/public/mypage">Myページに戻る</a>
          <div class="row justify-content-center">
             <form  class="col-auto " action="/musicApp/public/chatajax/{{ $url }}" method="post">
                @csrf

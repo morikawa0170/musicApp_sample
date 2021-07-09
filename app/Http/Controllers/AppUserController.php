@@ -103,9 +103,4 @@ class AppUserController extends Controller
     {
         //
     }
-
-    public function destroy(AppUser $appUser)
-    {
-        //
-    }
 }
