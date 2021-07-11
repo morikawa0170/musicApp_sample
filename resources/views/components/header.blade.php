@@ -1,7 +1,7 @@
 <?php $uri = $_SERVER['REQUEST_URI'];?>
-<nav class="navbar fixed-top navbar-dark bg-dark">
+<nav class="shadow-sm mb-5 navbar fixed-top navbar-dark bg-dark">
    <a class="ml-5 navbar-brand" href="/musicApp/public">Music App</a>
-   <ul class="justify-content-around navbar-nav mr-auto flex-row">
+   <ul class="navbar-nav mr-auto flex-row">
       @if($uri == "/musicApp/public/")
          <li class="nav-item active ml-5 mr-5">
            <a class="nav-link" href="/musicApp/public">ホーム<span class="sr-only">(current)</span></a>
@@ -18,11 +18,10 @@
             <a class="nav-link" href="mypage">マイページ</a>
       @endif  
       </li>
-      <li class="nav-item">
-         
+      <li class="nav-item ml-auto">
          <form action="logout" method="POST">
             @csrf
-            <input type="submit" class="nav-link btn btn-link" href="#" value="ログアウト">
+            <input type="submit" class="nav-link btn btn-link" value="ログアウト">
          </form>   
       </li>
    </ul>
