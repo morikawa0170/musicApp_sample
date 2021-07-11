@@ -1,27 +1,18 @@
-<!--@extends('layouts.layouts')-->
-   
-<!--@section('title', 'メインぺージ')-->
-
 <!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>メインページ</title>
+        <title>ホーム</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <style>
-            .table td{
-                vertical-align: middle;
-                height: 100px;
+            .table td{ 
+                vertical-align: middle; 
+                height: 100px; 
             }
         </style>
     </head>
     <body>
-        <h1>メインページ</h1>
-        <a href="mypage">Myページ</a>
-        <form action="logout" method="POST">
-            @csrf
-            <input type="submit" value="ログアウト" class="btn btn-link">
-        </form>
+        @include('components.header')
         <div id="list" class="container">
             <table class="table">
                 <thead class="thead-light">

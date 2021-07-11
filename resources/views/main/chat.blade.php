@@ -10,10 +10,10 @@ $username = $_SESSION["NAME"];
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    </head>
    <body>
+      @include('components.header')
       <div class="container">
          <iframe class="d-block mt-3 mx-auto w-50" style="height: 500px" src="https://open.spotify.com/embed/playlist/{{ $url }}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
          <br>
-         <a href="/musicApp/public/mypage">Myページに戻る</a>
          <div class="row justify-content-center">
             <form  class="col-auto " action="/musicApp/public/chatajax/{{ $url }}" method="post">
                @csrf

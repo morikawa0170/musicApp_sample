@@ -12,7 +12,7 @@
         </style>
     </head>
     <body>
-        <a href="/musicApp/public">投稿一覧画面に戻る</a>
+        @include('components.header')
         <div id="list" class="container"></div>
         <script>
             var Client_ID = "c952338e635a43308c36d5ebdee12aae"; 

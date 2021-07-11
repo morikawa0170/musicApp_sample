@@ -37,10 +37,13 @@ class PlaylistController extends Controller
       
       if($playlistC >= 1) {
          $state = 'registered';
+         $id = $playlist->id;
+      } else {
+         $id = null;
       }
 
       $data = [
-            "id" => $playlist->id,
+            "id" => $id,
             "spotifyId" => $request-> spotifyId,
             "playlistId" => $request-> playlistId,
             "playlistName" => $request-> playlistName,
@@ -79,3 +82,4 @@ class PlaylistController extends Controller
       return redirect('/');
    }
 }
+ 
