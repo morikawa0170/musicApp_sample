@@ -25,9 +25,11 @@
          </form>   
       </li>
    </ul>
-   <form class="form-inline">
-      <input class="form-control mr-sm-2 border-info" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-   </form>
+   @if($uri == "/musicApp/public/")
+      <form class="form-inline mr-5">
+         <input class="form-control mr-sm-2 border-info" type="search" placeholder="タイトル名で検索" aria-label="Search">
+         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
+      </form>
+   @endif
 </nav>
 <div style="margin-top:100px;"></div>

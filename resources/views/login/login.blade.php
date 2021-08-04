@@ -10,17 +10,21 @@
    </nav>
    <div class="container w-50">
       <form id="loginForm" name="loginForm" action="" method="POST">
-         {{ csrf_field() }}
-         <legend for="username">ログインフォーム</legend>
+         @csrf
+         <h3>ログインフォーム</h3>
          <div class="form-group">
             <label>ユーザーID</label>
+            <!--@isset($error_message){-->
+               <p>{{ error_message }}</p>
+            <!--}   -->
+            <!--@endisset-->
             <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="ユーザーID">
          </div>
          <div class="form-group">
             <label for="password">パスワード</label>
             <input type="password" class="form-control" id="password" name="password" value="" placeholder="パスワード">
          </div>
-         <input  type="submit" class="btn btn-primary" id="login" name="login" value="ログイン">
+         <input type="submit" class="btn btn-primary" id="login" name="login" value="ログイン">
       </form>
       <form action="register">
          <input type="submit" class="btn btn-link" value="新規登録">

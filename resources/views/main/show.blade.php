@@ -43,6 +43,7 @@
                   <input type="hidden" name="img"  value="{{$img}}">
                </form>
             @endif 
+            <a href="https://open.spotify.com/playlist/{{ $playlistId }}" class="ml-3 d-block my-auto">変更する</a>
          </div>
       </div>
    </div>

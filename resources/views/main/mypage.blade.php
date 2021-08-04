@@ -13,6 +13,9 @@
     </head>
     <body>
         @include('components.header')
+        <div class="container d-flex justify-content-between">
+            <h4 class="mb-5">{{ $user_data->username }}さんの公開プレイリスト一覧</h4>
+        </div>
         <div id="list" class="container"></div>
         <script>
             var Client_ID = "c952338e635a43308c36d5ebdee12aae"; 

@@ -38,9 +38,7 @@ Route::post('/chatajax/{title}',[AppUserController::class,'chatStore']); //チ�
 Route::get('/chatajax/{title}',[AppUserController::class,'chatShow']); //チャットを表示
 
 
-Route::get('/register/', function (){ //新規登録
-    return view('login.register');
-});
-Route::post('/register', [LoginController::class, 'register']);
+Route::post('/register', [LoginController::class, 'register'])->name('register');
+Route::get('/register',[LoginController::class,'registerForm']);
 
 

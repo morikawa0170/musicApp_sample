@@ -8,7 +8,7 @@ use App\Models\AppUser;
 
 class LoginController extends Controller
 {
-
+   
    //ログインを行う
    public function login(Request $request)
    {
@@ -32,7 +32,14 @@ class LoginController extends Controller
             }
          }
          
-      return redirect('/login')->with('error_message', 'ユーザIDまたはパスワードが違っています。');
+      return redirect('/login');
+   }
+   
+   //登録フォーム画面表示
+   public function registerForm()
+   {
+      
+      return view('login.register',['error_message' => '']);
    }
    
    //新規登録機能
@@ -42,29 +49,42 @@ class LoginController extends Controller
       $username = $request->username;
       $spotifyid = $request->spotifyid;
       $password = $request->password;
-      $errorMessage = "";
-      $errorMessage2 = "";
-      //db->カラム名 = $request(POSTされた値) -> name属性の値
+      
+      //db->カラム名 = $request(POSTされたvalueの値)->name属性名
       $AppUser = new AppUser();
       $AppUser-> username = $username;
       $AppUser-> spotifyid = $spotifyid;
       $AppUser-> password = $password;
-      $AppUser-> password = password_hash("$password",PASSWORD_DEFAULT); //ハッシュ化したpassを代入
+      $AppUser-> password = password_hash("$password",PASSWORD_DEFAULT); //パスワードをハッシュ化
       
       $usernameC = AppUser::where('username',$username)->count();
       $spotifyidC = AppUser::where('spotifyid',$spotifyid)->count();
       
-      if ($usernameC == 1) {
-         return redirect('/register');
-         $errorMessage1 = "指定されたユーザーIDは既に登録されています。";
-         
-      } else if ($spotifyidC == 1) {
-         return redirect('/register');
-         $errorMessage2 = "指定されたSpotify ユーザー名は既に登録されています。";
-         
-      } else {
+      if($usernameC == 0 && $spotifyidC == 0) {
          $AppUser-> save();
          return redirect('/login');
+      }else if($usernameC == 1 && $spotifyidC == 0){
+         return view('login.register',[
+            'error_message1'=>'指定されたユーザー名は既に登録されています。',
+            'username' => $username,
+            'spotifyid' => $spotifyid,
+            'password' => $password
+         ]);   
+      }else if($usernameC == 0 && $spotifyidC == 1){
+         return view('login.register',[
+            'error_message2'=>'指定されたSpotify ユーザー名は既に登録されています。',
+            'username' => $username,
+            'spotifyid' => $spotifyid,
+            'password' => $password
+         ]);
+      }else{
+         return view('login.register',[
+            'error_message1'=>'指定されたユーザー名は既に登録されています。',
+            'error_message2'=>'指定されたSpotify ユーザー名は既に登録されています。',
+            'username' => $username,
+            'spotifyid' => $spotifyid,
+            'password' => $password
+         ]);
       }
    }
    
