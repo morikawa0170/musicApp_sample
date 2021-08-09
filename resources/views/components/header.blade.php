@@ -12,10 +12,10 @@
       </li>
       @if($uri == "/musicApp/public/mypage")
          <li class="nav-item active mr-5">
-           <a class="nav-link" href="mypage">マイページ<span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="/musicApp/public/mypage">マイページ<span class="sr-only">(current)</span></a>
       @else
          <li class="nav-item mr-5">
-            <a class="nav-link" href="mypage">マイページ</a>
+            <a class="nav-link" href="/musicApp/public/mypage">マイページ</a>
       @endif  
       </li>
       <li class="nav-item ml-auto">
@@ -25,9 +25,10 @@
          </form>   
       </li>
    </ul>
-   @if($uri == "/musicApp/public/")
-      <form class="form-inline mr-5">
-         <input class="form-control mr-sm-2 border-info" type="search" placeholder="タイトル名で検索" aria-label="Search">
+   @if($uri == "/musicApp/public/" || $uri == "/musicApp/public/search")
+      <form action="search" method="post" class="form-inline mr-5">
+         @csrf
+         <input class="form-control mr-sm-2 border-info" type="search" placeholder="タイトル名で検索" aria-label="Search" name="search">
          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
       </form>
    @endif

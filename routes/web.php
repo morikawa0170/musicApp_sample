@@ -20,9 +20,10 @@ use App\Http\Controllers\PlaylistController;
 */
 
 Route::get('/',[AppUserController::class,'index']);
+Route::post('/search',[AppUserController::class,'search']);
 
 Route::get('/login/', function (){
-    return view('login.login');
+   return view('login.login');
 });
 Route::post('/login', [LoginController::class, 'login']); // ログインを実行
 Route::post('/logout', [LoginController::class,'logout']); //ログアウトを実行

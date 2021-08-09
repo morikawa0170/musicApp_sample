@@ -98,9 +98,16 @@ class AppUserController extends Controller
         return view('main.mypage', compact('user_data'));
     }
 
-
-    public function update(Request $request, AppUser $appUser) 
+    public function search(Request $request) 
     {
-        //
+        $search = Playlists::where('playlistName', 'like', "%$request->search%")->get();
+        $searchC = Playlists::where('playlistName', 'like', "%$request->search%")->count();
+        if ($searchC==0) {
+            $search = false;
+        }
+        
+        return view('main.search', compact('search'));
     }
-}
+    
+}   
+    
