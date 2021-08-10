@@ -34,12 +34,13 @@ class AppUserController extends Controller
         //$title(spotifyid)のみを取得
         $comments = Comment::where('title',$title)->get(); 
         
-        //$titleを連想配列で表示
+        
  	    if ($comments) {
  		    $msg = array();
  		    foreach($comments as $row) {
       		    $msg[] = array(
      				'msg'=>$row['msg'],
+     				'username'=>$row['username'],
      				'created_at'=>$row['created_at']
      			);
  		    }
@@ -60,9 +61,11 @@ class AppUserController extends Controller
         $comment = new Comment();
         $title = $request-> title;
         $msg = $request-> msg;
+        $username = $request-> username;
         if($_SERVER['REQUEST_METHOD'] == 'POST'){ //POST送信時のみタイトル（プレイリストid）とチャットをdbに登録
-        	$comment-> title = $title;
-        	$comment-> msg = $msg;
+        	$comment->title = $title;
+        	$comment->msg = $msg;
+        	$comment->username = $username;
         	$comment-> save();
         	$save = $comment-> save();
         	if ($save) {

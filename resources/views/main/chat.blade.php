@@ -18,6 +18,7 @@ $username = $_SESSION["NAME"];
             <form  class="col-auto " action="/musicApp/public/chatajax/{{ $url }}" method="post">
                @csrf
                <input type="hidden" name="title" value="{{ $url }}">
+               <input type="hidden" name="username" value="<?php echo $username; ?>">
                <input type="text" name="msg" size=80>
                <input type="submit" value="送信">
             </form>
@@ -32,23 +33,23 @@ $username = $_SESSION["NAME"];
                ajax.addEventListener("load", function(){ // loadイベントを登録します。
                   var msg = document.getElementById("chat");
                   var json = this.response;
-                  // for(var i = 0; i < json.length; i++) {
-                  //    msg.innerHTML += "<div class='card'>" + json[i].msg + "</div>";
-                  // }
                   for(var i = json.length-1; i >= 0; i--) {
                      var str = json[i].created_at;
                      var replace = str.replace('T',' ');
                      var created_at = replace.substr(0,19);
+                     var username = json[i].username;
                      msg.innerHTML += 
                         "<div class='card mb-2 mt-3 w-75 mx-auto'>" 
-                           +"<div class='card-body pl-5 pb-1 d-flex justify-content-between'>" 
-                              +'<p>'+json[i].msg +'</p>'
-                              +'<p class="text-muted ">'+ created_at +'</p>'
+                           +"<div class='card-body pl-5 pb-1 d-flex bd-highlight'>" 
+                              +'<p class="mr-auto p-1 bd-highlight">'+json[i].msg +'</p>'
+                              +'<p class="p-1 bd-highlight">'+ username +' /</p>'
+                              +'<p class="text-muted p-1 bd-highlight">'+ created_at +'</p>'
                            + "</div>" 
                         + "</div>";
                   }
                }, false);
             }
+            // var handle = setInterval(recvAJAX, 200);
             var handle = recvAJAX();
          </script>
          
