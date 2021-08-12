@@ -38,14 +38,33 @@ $username = $_SESSION["NAME"];
                      var replace = str.replace('T',' ');
                      var created_at = replace.substr(0,19);
                      var username = json[i].username;
-                     msg.innerHTML += 
-                        "<div class='card mb-2 mt-3 w-75 mx-auto'>" 
-                           +"<div class='card-body pl-5 pb-1 d-flex bd-highlight'>" 
-                              +'<p class="mr-auto p-1 bd-highlight">'+json[i].msg +'</p>'
-                              +'<p class="p-1 bd-highlight">'+ username +' /</p>'
-                              +'<p class="text-muted p-1 bd-highlight">'+ created_at +'</p>'
-                           + "</div>" 
-                        + "</div>";
+                     var id = json[i].id;
+                     var form = '<form action="/musicApp/public/chat/delete" method="post">'
+                                 +"<input type='submit' class='btn btn-link' value='削除'>"
+                                 +"<input type='hidden' name='id' value='"+ id +"'>"
+                                 +"<input type='hidden' name='title' value="+ "{{$url}}" +">"
+                                 +"<input type='hidden' name='_token' value='{{ csrf_token() }}'>"
+                                 +"</form>";
+                     var myPost=    "<div class='card mb-2 mt-3 w-75 mx-auto'>" 
+                                       +"<div class='card-body pl-5 pb-1 d-flex bd-highlight'>" 
+                                          +'<p class="mr-auto p-1 bd-highlight">'+json[i].msg +'</p>'
+                                          +'<p class="p-1 bd-highlight">'+ username +' /</p>'
+                                          +'<p class="text-muted p-1 bd-highlight">'+ created_at +'</p>'
+                                          +form
+                                       +"</div>"
+                                    +"</div>";
+                     var otherPost = "<div class='card mb-2 mt-3 w-75 mx-auto'>" 
+                                       +"<div class='card-body pl-5 pb-1 d-flex bd-highlight'>" 
+                                          +'<p class="mr-auto p-1 bd-highlight">'+json[i].msg +'</p>'
+                                          +'<p class="p-1 bd-highlight">'+ username +' /</p>'
+                                          +'<p class="text-muted p-1 bd-highlight">'+ created_at +'</p>'
+                                       +"</div>"
+                                    +"</div>";         
+                     if ("{{ $username }}" == username){
+                        msg.innerHTML += myPost;
+                     }else{
+                        msg.innerHTML += otherPost;
+                     }
                   }
                }, false);
             }

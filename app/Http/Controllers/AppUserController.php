@@ -39,6 +39,7 @@ class AppUserController extends Controller
  		    $msg = array();
  		    foreach($comments as $row) {
       		    $msg[] = array(
+      		        'id'=>$row['id'],
      				'msg'=>$row['msg'],
      				'username'=>$row['username'],
      				'created_at'=>$row['created_at']

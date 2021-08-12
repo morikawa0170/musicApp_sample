@@ -7,7 +7,6 @@
         <style>
             .table td{
                 vertical-align: middle;
-                height: 100px;
             }
         </style>
     </head>
