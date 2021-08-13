@@ -40,7 +40,7 @@ $username = $_SESSION["NAME"];
                      var username = json[i].username;
                      var id = json[i].id;
                      var form = '<form action="/musicApp/public/chat/delete" method="post">'
-                                 +"<input type='submit' class='btn btn-link' value='削除'>"
+                                 +"<input type='submit' class='btn btn-link' value='削除' onClick='return delCheck()'>"
                                  +"<input type='hidden' name='id' value='"+ id +"'>"
                                  +"<input type='hidden' name='title' value="+ "{{$url}}" +">"
                                  +"<input type='hidden' name='_token' value='{{ csrf_token() }}'>"
@@ -70,6 +70,12 @@ $username = $_SESSION["NAME"];
             }
             // var handle = setInterval(recvAJAX, 200);
             var handle = recvAJAX();
+            function delCheck(){
+               var result = confirm('本当に削除してよろしいですか？');
+               if(result == false){
+                  return false;
+               }
+            }
          </script>
          
       </div>
